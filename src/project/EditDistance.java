@@ -1,89 +1,65 @@
 package project;
 
-
-
 public class EditDistance {
 
+	public static int editDistance(String word1, String word2) {
 
+		int len1 = word1.length();
 
-    public static int editDistance(String word1, String word2) {
+		int len2 = word2.length();
 
-        int len1 = word1.length();
+		// len1+1, len2+1, because finally return dp[len1][len2]
+		int[][] dp = new int[len1 + 1][len2 + 1];
 
-        int len2 = word2.length();
+		for (int i = 0; i <= len1; i++) {
 
-     
+			dp[i][0] = i;
 
-        // len1+1, len2+1, because finally return dp[len1][len2]
+		}
 
-        int[][] dp = new int[len1 + 1][len2 + 1];
+		for (int j = 0; j <= len2; j++) {
 
-     
+			dp[0][j] = j;
 
-        for (int i = 0; i <= len1; i++) {
+		}
 
-            dp[i][0] = i;
+		//iterate though, and check last char
+		for (int i = 0; i < len1; i++) {
 
-        }
+			char c1 = word1.charAt(i);
 
-     
+			for (int j = 0; j < len2; j++) {
 
-        for (int j = 0; j <= len2; j++) {
+				char c2 = word2.charAt(j);
 
-            dp[0][j] = j;
+				//if last two chars equal
+				if (c1 == c2) {
 
-        }
+					//update dp value for +1 length
+					dp[i + 1][j + 1] = dp[i][j];
 
-     
+				} else {
 
-        //iterate though, and check last char
+					int replace = dp[i][j] + 1;
 
-        for (int i = 0; i < len1; i++) {
+					int insert = dp[i][j + 1] + 1;
 
-            char c1 = word1.charAt(i);
+					int delete = dp[i + 1][j] + 1;
 
-            for (int j = 0; j < len2; j++) {
+					int min = replace > insert ? insert : replace;
 
-                char c2 = word2.charAt(j);
+					min = delete > min ? min : delete;
 
-     
+					dp[i + 1][j + 1] = min;
 
-                //if last two chars equal
+				}
 
-                if (c1 == c2) {
+			}
 
-                    //update dp value for +1 length
+		}
 
-                    dp[i + 1][j + 1] = dp[i][j];
+		return dp[len1][len2];
 
-                } else {
+	}
 
-                    int replace = dp[i][j] + 1;
-
-                    int insert = dp[i][j + 1] + 1;
-
-                    int delete = dp[i + 1][j] + 1;
-
-     
-
-                    int min = replace > insert ? insert : replace;
-
-                    min = delete > min ? min : delete;
-
-                    dp[i + 1][j + 1] = min;
-
-                }
-
-            }
-
-        }
-
-     
-
-        return dp[len1][len2];
-
-    }
-
-
-
-}//class
+} //class
