@@ -16,7 +16,46 @@ import org.jsoup.select.Elements;
 
 //Uses Jsoup to crawl through web and creates text files with parsed information.
 public class WebCrawler {
-	
+	public static String crawl(String link) {
+		
+		
+		String html = urlToHTML(link);
+		
+		Document doc = Jsoup.parse(html);
+		String text = doc.text();
+		String title = doc.title();
+		//System.out.print(text);
+		createFile(title,text,link);
+		
+		Elements e = doc.select("a");
+		String links = "";
+		
+		for(Element e2 : e) {
+			String href = e2.attr("abs:href");
+			if(href.length()>3)
+			{
+				links = links+"\n"+href;
+			}
+		}
+		return links;
+	}
+	public static void createFile(String title,String text,String link) {
+		try {
+			String[] titlesplit = title.split("\\|");
+			String newTitle = "";
+			for(String s : titlesplit) {
+				newTitle = newTitle+" "+s;
+			}
+			File f = new File("WebPages//"+newTitle+".txt");
+			f.createNewFile();			
+			PrintWriter pw = new PrintWriter(f);
+			pw.println(link);
+			pw.println(text);
+			pw.close();
+			
+		} catch (FileNotFoundException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();}
+		
+	}
 	
 	public static String urlToHTML(String link){
 		try {
