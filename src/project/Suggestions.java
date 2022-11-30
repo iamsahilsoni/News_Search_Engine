@@ -47,7 +47,7 @@ public class Suggestions {
 	
 	public static ArrayList<String> wordSuggestion(String args) {
 
-		File path = new File("/Users/krishnapatel/News_Search_Engine/WebPages/");
+		File path = new File("WebPages/");
 		File[] listOfFiles = path.listFiles();
 		for (File file : listOfFiles) {
 			try {

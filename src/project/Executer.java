@@ -49,10 +49,13 @@ public class Executer {
 	                System.out.println("Enter the keyword for word suggestions");
 	                user_input=sc.nextLine();   
 	                ArrayList<String> suggestions= Suggestions.wordSuggestion(user_input);
-					
-					
+					if(suggestions.size()<=0) {
+						System.out.println("No Suggestion Exist");
+					}
+					else {
 					for (String string : suggestions) {
 						System.out.println(string);
+					}
 					}
 					
 					break;

@@ -26,7 +26,7 @@ public class InvertedIndex {
 	public static HashMap<String, HashMap<String, Integer>> reverseIndex = new HashMap<String, HashMap<String, Integer>>();
 	
 	public static void parseHTML() throws IOException {
-		String strHtmlFilesPath = "/Users/krishnapatel/News_Search_Engine/WebPages/";
+		String strHtmlFilesPath = "WebPages/";
 		File path = new File(strHtmlFilesPath);
 		File[] files = path.listFiles();
 
